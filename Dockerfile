@@ -1,4 +1,4 @@
-# docker build -t mplx/webvirtcloud .
+# docker build -t kendar/webvirtcloud .
 FROM phusion/baseimage:0.11
 
 LABEL maintainer="geki007"
