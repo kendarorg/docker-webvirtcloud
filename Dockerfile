@@ -73,11 +73,10 @@ WORKDIR /srv/webvirtcloud
 ADD 01-wsproxy.patch /srv/webvirtcloud/01-wsproxy.patch
 ADD 02-forwardssl.patch /srv/webvirtcloud/02-forwardssl.patch
 
-RUN patch -p1 -u <01-wsproxy.patch && \
-    patch -p1 -u <02-forwardssl.patch && \
-    cp conf/nginx/webvirtcloud.conf /etc/nginx/conf.d && \
-    chown -R www-data:www-data /etc/nginx/conf.d/webvirtcloud.conf && \
-    rm 01-wsproxy.patch && \
-    rm 02-forwardssl.patch
+RUN sed -i 's/websockify/{{ ws_path }}/g' console/templates/console-vnc-full.html
+RUN sed -i 's/websockify/{{ ws_path }}/g' console/templates/console-vnc-lite.html
+RUN sed -i 's/WS_PUBLIC_PORT = 6080/WS_PUBLIC_PORT = 80/g' webvirtcloud/settings.py.template
+RUN cp conf/nginx/webvirtcloud.conf /etc/nginx/conf.d
+RUN chown -R www-data:www-data /etc/nginx/conf.d/webvirtcloud.conf
 
 COPY startinit.sh /etc/my_init.d/startinit.sh
