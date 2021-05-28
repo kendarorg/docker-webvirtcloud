@@ -11,11 +11,14 @@ CMD ["/sbin/my_init"]
 RUN apt-get update -qqy && \
     DEBIAN_FRONTEND=noninteractive apt-get -qyy install \
     -o APT::Install-Suggests=false \
-    python-virtualenv \
-    python-dev \
+    virtualenv \
+    python3-virtualenv \
+    python3-dev \
+    python3-lxml \
     libxml2-dev \
     libsasl2-dev \
     libldap2-dev \
+    libxslt1-dev \
     libssl-dev \
     libvirt-dev \
     zlib1g-dev \
@@ -23,10 +26,14 @@ RUN apt-get update -qqy && \
     supervisor \
     libsasl2-modules \
     unzip \
+    gcc \
+    pkg-config \
+    python3-guestfs \
     curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mkdir -p /srv
+
 
 WORKDIR /srv
 
@@ -44,7 +51,7 @@ RUN cd /srv/webvirtcloud/
 RUN mkdir data
 RUN cp webvirtcloud/settings.py.template webvirtcloud/settings.py
 RUN sed -i "s|'db.sqlite3'|'data/db.sqlite3'|" webvirtcloud/settings.py
-RUN virtualenv venv
+RUN virtualenv -p python3 venv
 RUN . venv/bin/activate
 RUN venv/bin/pip install -r conf/requirements.txt
 RUN chown -R www-data:www-data /srv/webvirtcloud/
