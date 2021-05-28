@@ -6,7 +6,6 @@ LABEL maintainer="kendar <mplx+docker@donotreply.at>"
 
 EXPOSE 80
 
-CMD ["/sbin/my_init"]
 
 RUN apt-get update -qqy && \
     DEBIAN_FRONTEND=noninteractive apt-get -qyy install \
@@ -78,3 +77,5 @@ RUN cp conf/nginx/webvirtcloud.conf /etc/nginx/conf.d
 RUN chown -R www-data:www-data /etc/nginx/conf.d/webvirtcloud.conf
 
 COPY startinit.sh /etc/my_init.d/startinit.sh
+
+CMD ["/sbin/my_init"]
