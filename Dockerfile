@@ -70,8 +70,6 @@ RUN curl -L -o $COMMITID.zip https://github.com/kendarorg/webvirtcloud/archive/r
 
 WORKDIR /srv/webvirtcloud
 
-ADD 01-wsproxy.patch /srv/webvirtcloud/01-wsproxy.patch
-ADD 02-forwardssl.patch /srv/webvirtcloud/02-forwardssl.patch
 
 RUN sed -i 's/websockify/{{ ws_path }}/g' console/templates/console-vnc-full.html
 RUN sed -i 's/websockify/{{ ws_path }}/g' console/templates/console-vnc-lite.html
