@@ -5,8 +5,8 @@ echo "Fixing permissions..."
 chown -R www-data:www-data /srv/webvirtcloud/data/
 
 # disabling django debug
-echo "Disable debug mode..."
-sed -i 's/DEBUG = True/DEBUG = False/' /srv/webvirtcloud/webvirtcloud/settings.py
+#echo "Disable debug mode..."
+#sed -i 's/DEBUG = True/DEBUG = False/' /srv/webvirtcloud/webvirtcloud/settings.py
 
 # generate and set secret key if empty
 echo "Secret key..."

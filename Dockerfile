@@ -14,6 +14,9 @@ RUN apt-get update -qqy && \
     python-virtualenv \
     python-dev \
     libxml2-dev \
+    libsasl2-dev \
+    libldap2-dev \
+    libssl-dev \
     libvirt-dev \
     zlib1g-dev \
     nginx \
@@ -27,12 +30,12 @@ RUN apt-get update -qqy && \
 
 WORKDIR /srv
 
-ENV COMMITID=a9a2e1167bfae652186e905d6b226c75022b45e9
+ENV COMMITID=0b7e334dadeca70cd8b901d25dda61ccd7abb2df
 
-RUN curl -L -o $COMMITID.zip https://github.com/retspen/webvirtcloud/archive/$COMMITID.zip && \
+RUN curl -L -o $COMMITID.zip https://github.com/kendarorg/webvirtcloud/archive/refs/heads/master.zip && \
     unzip $COMMITID.zip && \
     rm -f $COMMITID.zip && \
-    mv webvirtcloud-$COMMITID webvirtcloud && \
+    mv webvirtcloud-master webvirtcloud && \
     rm -Rf webvirtcloud/doc/ webvirtcloud/Vagrantfile && \
     cp webvirtcloud/conf/supervisor/webvirtcloud.conf /etc/supervisor/conf.d && \
     cp webvirtcloud/conf/nginx/webvirtcloud.conf /etc/nginx/conf.d && \
